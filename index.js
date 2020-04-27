@@ -5,7 +5,7 @@ const app = express();
 const MongoClient = require('mongodb');
 const url='mongodb+srv://ashiqcv:19851055181@cluster0-lkvm8.mongodb.net/test?retryWrites=true&w=majority';
 
-const link = 'https://urliq.herokuapp.com/';
+const link = 'https://urliq.herokuapp.com/search/';
 
 app.use(cors());
 app.use(bodyparser.json());
@@ -15,19 +15,17 @@ app.set('port',process.env.PORT);
 //to create create short url
 
 app.post('/create', function(req, res) {
-    console.log("reached here")
     MongoClient.connect(url, (err, client) => {
-        if (err) return console.log(err);
+        if (err) throw err;
         console.log("entered db");
         var db = client.db("marketDB");
-        db.collection('shorturl').findOne({ "name" : req.body.name },(err,result) => {
+        db.collection('shorturl').findOne({ name : req.body.name },(err,result) => {
             if(err) throw err;
             if(result==null){
-                console.log("same db not found");
                 let extender = Math.floor(Math.random() * 1000);
                 let output = req.body;
-                output['extender'] = extender;
-                output['link'] = link + extender;
+                output.extender = extender;
+                output.link = link + extender;
                 db.collection('shorturl').insertOne(output, (err, result) => {
                 if (err) throw err;
                 client.close();
@@ -62,7 +60,7 @@ app.get('/list', function(req, res) {
 })
 
 //to route to original website
-app.get("/:id",function(req,res){
+app.get("search/:id",function(req,res){
     var name=parseInt(req.params.id);
     MongoClient.connect(url,function(err,client){
         if(err) throw err;
@@ -70,6 +68,7 @@ app.get("/:id",function(req,res){
        db.collection("shorturl").findOne({extender : name},function(err,data){
             if(err) throw err;
             client.close();
+            console.log(data.longurl);
             res.redirect(data.longurl);
         })
 
