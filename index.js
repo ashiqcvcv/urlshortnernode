@@ -12,6 +12,13 @@ app.use(bodyparser.json());
 
 app.set('port',process.env.PORT);
 
+app.post('/',function(req,res){
+    console.log("working port");
+    res.send({
+        message : "working goto exact route"
+    });
+})
+
 //to create create short url
 
 app.post('/create', function(req, res) {
@@ -25,21 +32,6 @@ app.post('/create', function(req, res) {
             if(result==null){
                 console.log("same db not found");
                 let extender = Math.floor(Math.random() * 1000);
-                // let extenderUnique = 2;
-                // // while(extenderUnique == 2){
-                // //     db.collection('shorturl').findOne({'extender':extender },(err,checking) =>{
-                // //         if(err) throw err;
-                // //         if(checking != null){
-                // //             extender = Math.floor(Math.random() * 1000);
-                // //             console.log("match found");
-                // //         }else{
-                // //             extenderUnique = 3;
-                // //             console.log("loop closed");
-                // //         }
-                // //         console.log("enterted near while");
-                // //         extenderUnique = 6;
-                // //     })
-                // // }
                 let output = req.body;
                 output['extender'] = extender;
                 output['link'] = link + extender;
