@@ -64,7 +64,7 @@ app.get('/list', function(req, res) {
 //to route to original website
 app.get("/:id",function(req,res){
     var name=parseInt(req.params.id);
-    mongoClient.connect(url,function(err,client){
+    MongoClient.connect(url,function(err,client){
         if(err) throw err;
         var db = client.db("marketDB");
        db.collection("shorturl").findOne({extender : name},function(err,data){
