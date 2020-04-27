@@ -60,7 +60,7 @@ app.get('/list', function(req, res) {
 })
 
 //to route to original website
-app.get("search/:id",function(req,res){
+app.get("/search/:id",function(req,res){
     var name=parseInt(req.params.id);
     MongoClient.connect(url,function(err,client){
         if(err) throw err;
