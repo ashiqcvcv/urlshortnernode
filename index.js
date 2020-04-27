@@ -15,7 +15,8 @@ app.set('port',process.env.PORT);
 //to create create short url
 
 app.post('/create', function(req, res) {
-    MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
+    console.log("reached here")
+    MongoClient.connect(url, (err, client) => {
         if (err) return console.log(err);
         console.log("entered db");
         var db = client.db("marketDB");
