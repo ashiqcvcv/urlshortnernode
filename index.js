@@ -68,8 +68,8 @@ app.get("search/:id",function(req,res){
        db.collection("shorturl").findOne({extender : name},function(err,data){
             if(err) throw err;
             client.close();
-            console.log(data.longurl);
-            res.redirect(data.longurl);
+            console.log(data.longUrl);
+            res.redirect(data.longUrl);
         })
 
    })
