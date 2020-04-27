@@ -5,19 +5,12 @@ const app = express();
 const MongoClient = require('mongodb');
 const url='mongodb+srv://ashiqcv:19851055181@cluster0-lkvm8.mongodb.net/test?retryWrites=true&w=majority';
 
-const link = 'https://urliq.herokuapp.com/:';
+const link = 'https://urliq.herokuapp.com/search/:';
 
 app.use(cors());
 app.use(bodyparser.json());
 
 app.set('port',process.env.PORT);
-
-app.post('/',function(req,res){
-    console.log("working port");
-    res.send({
-        message : "working goto exact route"
-    });
-})
 
 //to create create short url
 
@@ -45,7 +38,7 @@ app.post('/create', function(req, res) {
         })
             }else{
                 res.send({
-                    'url' : 'http://localhost:3000/search/:' + result.extender
+                    'url' : link + result.extender
                 })
             }
         })
@@ -69,7 +62,7 @@ app.get('/list', function(req, res) {
 })
 
 //to route to original website
-app.put('/:id', function(req, res) {
+app.put('/search/:id', function(req, res) {
     console.log("i got the call");
     var id = req.param('id');
     console.log(req.body);
