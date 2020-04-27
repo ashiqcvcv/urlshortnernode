@@ -3,7 +3,7 @@ const bodyparser = require('body-parser');
 var cors = require('cors')
 const app = express();
 const MongoClient = require('mongodb');
-const url='mongodb://localhost:27017';
+const url='mongodb+srv://ashiq:19851055181@shorturl-fzgzn.mongodb.net/test?retryWrites=true&w=majority';
 
 const link = 'http://localhost:3000/search/:';
 
