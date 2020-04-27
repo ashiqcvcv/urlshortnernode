@@ -50,7 +50,7 @@ app.post('/create', function(req, res) {
 //to get catogory details
 app.get('/list', function(req, res) {
     console.log(req.body);
-    MongoClient.connect(url,{ useUnifiedTopology: true }, (err, client) => {
+    MongoClient.connect(url, (err, client) => {
         if (err) return console.log(err);
         var db = client.db("marketDB");
         var userCursor =    db.collection('shorturl').find().toArray();
@@ -62,11 +62,11 @@ app.get('/list', function(req, res) {
 })
 
 //to route to original website
-app.put('/search/:id', function(req, res) {
+app.get('/search/:id', function(req, res) {
     console.log("i got the call");
     var id = req.param('id');
     console.log(req.body);
-    MongoClient.connect(url,{ useUnifiedTopology: true }, (err, client) => {
+    MongoClient.connect(url, (err, client) => {
         if (err) return console.log(err);
         db.collection('shorturl').findOne({ "extender" : id },(err,result) => {
             if(err) throw err;
