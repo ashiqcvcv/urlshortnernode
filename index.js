@@ -5,7 +5,7 @@ const app = express();
 const MongoClient = require('mongodb');
 const url='mongodb+srv://ashiqcv:19851055181@cluster0-lkvm8.mongodb.net/test?retryWrites=true&w=majority';
 
-const link = 'https://urliq.herokuapp.com/search/';
+const link = 'https://urliq.herokuapp.com/';
 
 app.use(cors());
 app.use(bodyparser.json());
@@ -62,21 +62,18 @@ app.get('/list', function(req, res) {
 })
 
 //to route to original website
-app.get('/search/:id', function(req, res) {
-    console.log("i got the call");
-    var id = req.param('id');
-    console.log(req.body);
-    MongoClient.connect(url, (err, client) => {
-        if (err) return console.log(err);
-        db.collection('shorturl').findOne({ "extender" : id },(err,result) => {
+app.get("/:id",function(req,res){
+    var name=parseInt(req.params.id);
+    mongoClient.connect(url,function(err,client){
+        if(err) throw err;
+        var db = client.db("marketDB");
+       db.collection("shorturl").findOne({extender : name},function(err,data){
             if(err) throw err;
-            if(result==null){
-                res.redirect(result.link);
-                console.log("redirected");
-                client.close();
-            }
+            client.close();
+            res.redirect(data.longurl);
         })
-    })
+
+   })
 })
 
 
