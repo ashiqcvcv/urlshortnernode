@@ -5,7 +5,7 @@ const app = express();
 const MongoClient = require('mongodb');
 const url='mongodb+srv://ashiqcv:19851055181@cluster0-lkvm8.mongodb.net/test?retryWrites=true&w=majority';
 
-const link = 'https://urliq.herokuapp.com/search/:';
+const link = 'https://urliq.herokuapp.com/search/';
 
 app.use(cors());
 app.use(bodyparser.json());
