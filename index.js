@@ -10,6 +10,8 @@ const link = 'http://localhost:3000/search/:';
 app.use(cors());
 app.use(bodyparser.json());
 
+app.set('port',process.env.PORT);
+
 //to create create short url
 
 app.post('/create', function(req, res) {
@@ -74,7 +76,7 @@ app.get('/list', function(req, res) {
 })
 
 //to route to original website
-app.put('/search/:id', function(req, res) {
+app.put('/:id', function(req, res) {
     console.log("i got the call");
     var id = req.param('id');
     console.log(req.body);
@@ -92,6 +94,6 @@ app.put('/search/:id', function(req, res) {
 })
 
 
-app.listen(process.env.PORT || 3000, function() {
-    console.log("port 3000 is running");
+app.listen(app.get('port'), function() {
+    console.log("port is running");
 })
